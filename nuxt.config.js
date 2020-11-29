@@ -6,7 +6,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: '%s',
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -70,7 +70,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
