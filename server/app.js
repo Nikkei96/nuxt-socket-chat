@@ -14,11 +14,20 @@ io.on('connection', socket => {
 
     socket.join(data.room)
     socket.emit('newMessage', m('admin', `Добро пожаловать ${data.name}`))
+    socket.emit('newMessage', m('TEST', `Добро пожаловать`))
     callback({ userId: socket.id })
     socket.broadcast.to(data.room)
       .emit('newMessage', m('admin', `Пользователь ${data.name} зашёл.`))
 
 
+  })
+
+  socket.on('createMessage', data => {
+    setTimeout(() => {
+      socket.emit('newMessage', {
+        text: data.text + ' SERVER'
+      })
+    }, 500)
   })
 })
 

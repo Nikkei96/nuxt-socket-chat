@@ -3,7 +3,6 @@
     <v-navigation-drawer app stateless v-model='drawer'>
       <v-list subheader>
         <v-subheader>Список людей в комнате</v-subheader>
-
         <v-list-item v-for='u in users' :key='u.id'>
           <v-list-item-avatar>
             <v-img :src='u.avatar'></v-img>
@@ -29,13 +28,16 @@
     </v-app-bar>
 
     <v-main>
-      <nuxt />
+      <div style='height: 100%'>
+        <nuxt />
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { AvatarGenerator } from 'random-avatar-generator'
 export default {
   data() {
     return {
@@ -44,12 +46,12 @@ export default {
       users: [
         {
           id: 1,
+          avatar: this.randomAvatar(),
           name: 'Nikita',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
         },
         {
           id: 2,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          avatar: this.randomAvatar(),
           name: 'Eliza',
         },
       ],
@@ -65,6 +67,10 @@ export default {
     exit() {
       this.$router.push('/?message=leftChat')
       this.clearUser()
+    },
+    randomAvatar() {
+      const generator = new AvatarGenerator()
+      return generator.generateRandomAvatar()
     },
   },
 }
