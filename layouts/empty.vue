@@ -1,5 +1,5 @@
 <template>
-  <v-app app>
+  <v-app app dark>
     <v-main>
       <v-container fluid>
         <nuxt />

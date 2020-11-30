@@ -1,5 +1,9 @@
 <template>
-  <h1>Hello! {{user.name}}</h1>
+  <div>
+    <ul>
+      <li v-for='(m, i) of messages' :key='i'>{{m.text}}</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -13,7 +17,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'messages']),
   },
 }
 </script>
