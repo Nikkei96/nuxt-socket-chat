@@ -1,9 +1,9 @@
 <template>
   <div class='c-wrap'>
-    <div class='c-chat'>
+    <div class='c-chat' ref='block'>
       <Message
-        v-for='m of messages'
-        :key='m.text'
+        v-for='(m, i) of messages'
+        :key='i'
         :name='m.name'
         :text='m.text'
         :owner='m.id === user.id'
@@ -18,6 +18,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  layout: 'chat',
   middleware: ['chat'],
   components: {
     Message: () => import('@/components/Message'),
@@ -31,6 +32,14 @@ export default {
 
   computed: {
     ...mapState(['user', 'messages']),
+  },
+
+  watch: {
+    messages() {
+      this.$nextTick(() => {
+        this.$refs.block.scrollTop = this.$refs.block.scrollHeight
+      })
+    },
   },
 }
 </script>
