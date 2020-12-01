@@ -13,7 +13,7 @@
           </v-list-item-content>
 
           <v-list-item-icon>
-            <v-icon :color='u.id === 1 ? "primary" : "grey"'>mdi-message</v-icon>
+            <v-icon :color='u.id === user.id ? "#fff" : "primary"'>mdi-message</v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list>
@@ -37,40 +37,24 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { AvatarGenerator } from 'random-avatar-generator'
 export default {
   data() {
     return {
       drawer: true,
-
-      users: [
-        {
-          id: 1,
-          avatar: this.randomAvatar(),
-          name: 'Nikita',
-        },
-        {
-          id: 2,
-          avatar: this.randomAvatar(),
-          name: 'Eliza',
-        },
-      ],
     }
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'users']),
   },
 
   methods: {
-    ...mapMutations(['clearUser']),
+    ...mapMutations(['clearData']),
     exit() {
-      this.$router.push('/?message=leftChat')
-      this.clearUser()
-    },
-    randomAvatar() {
-      const generator = new AvatarGenerator()
-      return generator.generateRandomAvatar()
+      this.$socket.client.emit('userLeft', this.user.id, () => {
+        this.$router.push('/?message=leftChat')
+        this.clearData()
+      })
     },
   },
 }
