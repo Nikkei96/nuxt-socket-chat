@@ -5,7 +5,6 @@
       outlined
       v-model='text'
       @keydown.enter='send'
-      style='max-width: 100px'
     ></v-text-field>
   </v-flex>
 </template>
